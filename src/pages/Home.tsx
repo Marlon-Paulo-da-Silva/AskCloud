@@ -8,6 +8,12 @@ import '../styles/auth.scss';
 import {Button} from '../components/Button';
 
 export function Home() {
+    const history = useHistory();
+
+    function navigateToNewRoom(){
+        history.push('./rooms/new');
+    }
+
     return (
         <div id="page-auth">
             <aside>
@@ -18,7 +24,7 @@ export function Home() {
             <main>
                 <div className="main-content">
                     <img src={logoImg} alt="AskCloud" />
-                    <button className="create-room">
+                    <button className="create-room" onClick={navigateToNewRoom}>
                         <img  src={googleIconImg} alt="Logo do google"/>
                         Crie sua sala com o Google
                     </button>
