@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import {useHistory} from 'react-router-dom'
 
 import illustrationImg from '../assets/images/illustration.svg'
@@ -7,12 +8,29 @@ import '../styles/auth.scss';
 
 import {Button} from '../components/Button';
 
+import  { TestContext } from '../App';
+
+import firebase from 'firebase';
+import { auth } from '../services/firebase';
+
 export function Home() {
     const history = useHistory();
+    const value = useContext(TestContext);
 
-    function navigateToNewRoom(){
-        history.push('./rooms/new');
+    function signIn() {}
+
+    function handleCreateRoom(){
+        const provider = new firebase.auth.GoogleAuthProvider();
+
+        auth.signInWithPopup(provider).then(result => {
+            console.log(result);
+
+            history.push('./rooms/new');
+        }
+        );
+       
     }
+
 
     return (
         <div id="page-auth">
@@ -24,7 +42,8 @@ export function Home() {
             <main>
                 <div className="main-content">
                     <img src={logoImg} alt="AskCloud" />
-                    <button className="create-room" onClick={navigateToNewRoom}>
+                    <h1>{value}</h1>
+                    <button className="create-room" onClick={handleCreateRoom}>
                         <img  src={googleIconImg} alt="Logo do google"/>
                         Crie sua sala com o Google
                     </button>
